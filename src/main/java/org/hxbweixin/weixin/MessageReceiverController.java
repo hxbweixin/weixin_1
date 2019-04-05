@@ -36,12 +36,11 @@ public class MessageReceiverController {
 		return echostr;
 	}
 	@PostMapping
-	public String onMessage(
-			@RequestParam("signature") String signature,
+	public String onMessage(@RequestParam("signature") String signature,
 			@RequestParam("timestamp") String timestamp,
 			@RequestParam("nonce") String nonce, 
 			@RequestBody String xml) {
-		LOG.trace("收到的消息原文：\n{}\n------------", xml);
+		LOG.debug("收到用户发送给公众号的消息：\n-------------\n"+"{}\n------------\n", xml);
 		return "success";
 	}
 }
