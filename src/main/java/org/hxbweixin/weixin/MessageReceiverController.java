@@ -1,6 +1,10 @@
 package org.hxbweixin.weixin;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,13 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 // @RequestMapping表示的含义：URL跟控制器的关系映射
 @RequestMapping("/weixin_1/weixin/receiver")
 public class MessageReceiverController {
+	private static final Logger LOG=LoggerFactory.getLogger(MessageReceiverController.class);
 
 	@GetMapping // 只处理GET请求
-	public String echo(//
-			@RequestParam("signature") String signature, //
-			@RequestParam("timestamp") String timestamp, //
-			@RequestParam("nonce") String nonce, //
-			@RequestParam("echostr") String echostr//
+	public String echo(
+			@RequestParam("signature") String signature,
+			@RequestParam("timestamp") String timestamp,
+			@RequestParam("nonce") String nonce, 
+			@RequestParam("echostr") String echostr
 	) {
 		// 正常来讲，需要把timestamp和nonce放入一个数组，并进行排序
 		// 接着把排序后的两个元素拼接成一个新的String
@@ -29,5 +34,14 @@ public class MessageReceiverController {
 
 		// 原路返回echostr的值，返回以后微信公众号平台就能够认为：服务器对接成功
 		return echostr;
+	}
+	@PostMapping
+	public String onMessage(
+			@RequestParam("signature") String signature,
+			@RequestParam("timestamp") String timestamp,
+			@RequestParam("nonce") String nonce, 
+			@RequestBody String xml) {
+		LOG.trace("收到的消息原文：\n{}\n------------", xml);
+		return "success";
 	}
 }
