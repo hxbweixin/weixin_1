@@ -1,5 +1,11 @@
 package org.hxbweixin.weixin;
 
+import java.io.StringReader;
+
+import javax.xml.bind.JAXB;
+
+import org.hxbweixin.weixin.domain.InMessage;
+import org.hxbweixin.weixin.service.MessageTypeInMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +47,23 @@ public class MessageReceiverController {
 			@RequestParam("nonce") String nonce, 
 			@RequestBody String xml) {
 		LOG.debug("收到用户发送给公众号的消息：\n-------------\n"+"{}\n------------\n", xml);
+		
+		//if(xml.contains("<MsgType><![CDATA[text]]></MsgType>")) {
+			
+		//}else if(xml.contains("<MsgType><![CDATA[image]]></MsgType>")) {
+			
+		//}else if(xml.contains("<MsgType><![CDATA[voice]]></MsgType>")) {
+			
+		//}else if(xml.contains("<MsgType><![CDATA[video]]></MsgType>")) {
+			
+		//}else if(xml.contains("<MsgType><![CDATA[location]]></MsgType>")) {
+			
+		//}
+		
+		String type=xml.substring(0);
+		Class<InMessage> cla=MessageTypeInMapper.getClass(type);
+		InMessage inMessage=JAXB.unmarshal(new StringReader(xml), cla);
+		LOG.debug("转换得到的消息对象\n{}\n",inMessage.toString());
 		return "success";
 	}
 }
