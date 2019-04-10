@@ -60,8 +60,12 @@ public class MessageReceiverController {
 			
 		//}
 		
-		String type=xml.substring(0);
+		
+		
+		String type=xml.substring(xml.indexOf("<MsgType><![CDATA[") +18);
+		type=type.substring(0,type.indexOf("]]></Msgtype>"));
 		Class<InMessage> cla=MessageTypeInMapper.getClass(type);
+		
 		InMessage inMessage=JAXB.unmarshal(new StringReader(xml), cla);
 		LOG.debug("转换得到的消息对象\n{}\n",inMessage.toString());
 		return "success";
