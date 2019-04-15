@@ -1,5 +1,12 @@
 # 配置MySQL数据库的连接参数
-spring.datasource
-    url:jdbc:mysql://127.0.0.1:3306/weixin?useSSL=false&serverTimezone=CST
-    username:weixin
-    password:1234
+spring:
+   datasource:
+      url:jdbc:mysql://127.0.0.1:3306/weixin?useSSL=false&serverTimezone=CST
+      username:weixin
+      password:1234
+    
+   #配置Redis的连接信息
+   redis:
+       host:120.77.252.210
+       port:6379
+       database:5    

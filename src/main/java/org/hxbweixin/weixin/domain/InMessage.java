@@ -1,5 +1,7 @@
 package org.hxbweixin.weixin.domain;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -9,8 +11,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name="xml")
-public abstract class InMessage {
+public abstract class InMessage implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@XmlElement(name="ToUserName")
 	@JsonProperty("ToUsername")
 	private String toUserName;
