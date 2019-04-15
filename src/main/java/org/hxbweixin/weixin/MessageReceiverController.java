@@ -11,12 +11,11 @@ import org.hxbweixin.weixin.service.MessageTypeInMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +30,7 @@ public class MessageReceiverController {
 	private static final Logger LOG=LoggerFactory.getLogger(MessageReceiverController.class);
 	
 	@Autowired
+	@Qualifier("inMessageTemplate")
 	private RedisTemplate<String,InMessage> inMessageTemplate;
 	
 	@GetMapping 
@@ -61,10 +61,11 @@ public class MessageReceiverController {
 		
 		inMessageTemplate.execute(new RedisCallback<String>() {
 			
+			@Override
 			public String doInRedis(RedisConnection connection) throws DataAccessException{
 				
 				try {
-					String channel="weixin_1"+inMessage.getMsgType();
+					String channel="weixin_1_"+inMessage.getMsgType();
 					
 					ByteArrayOutputStream out=new ByteArrayOutputStream();
 					ObjectOutputStream oos= new ObjectOutputStream(out);
