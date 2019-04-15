@@ -15,7 +15,7 @@
 	<logger name="org.hibernate.type.descriptor.sql.BasicBinder"
 		level="trace" />
 	
-	<logger name="org.hxbweixin.weixin" level="trace" />
+	<logger name="org.hxbweixin" level="trace" />
 
 	<root level="error">
 		<appender-ref ref="CONSOLE" />
