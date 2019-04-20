@@ -99,6 +99,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+					<fork>true</fork>
+					<jmxPort>9001</jmxPort>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

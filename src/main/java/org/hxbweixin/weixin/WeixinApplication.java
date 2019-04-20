@@ -1,6 +1,7 @@
 package org.hxbweixin.weixin;
 
 import org.hxbweixin.weixin.domain.InMessage;
+import org.hxbweixin.weixin.service.JsonRedisSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,10 @@ public class WeixinApplication {
 			@Autowired RedisConnectionFactory redisConnectionFactory){
 		RedisTemplate<String,InMessage> template=new RedisTemplate<>();
 		template.setConnectionFactory(redisConnectionFactory);
+	
+//		template.setKeySerializer(new StringRedisSerialzer());
+		template.setValueSerializer(new JsonRedisSerializer());
+		
 		return template;
 	}
 	

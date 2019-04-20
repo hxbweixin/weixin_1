@@ -59,26 +59,27 @@ public class MessageReceiverController {
 		InMessage inMessage=JAXB.unmarshal(new StringReader(xml), cla);
 		LOG.debug("转换得到的消息对象n{}\n",inMessage.toString());
 		
-		inMessageTemplate.execute(new RedisCallback<String>() {
-			
-			@Override
-			public String doInRedis(RedisConnection connection) throws DataAccessException{
-				
-				try {
-					String channel="weixin_1_"+inMessage.getMsgType();
-					
-					ByteArrayOutputStream out=new ByteArrayOutputStream();
-					ObjectOutputStream oos= new ObjectOutputStream(out);
-					oos.writeObject(inMessage);
-					
-					Long l = connection.publish(channel.getBytes(), out.toByteArray());
-					System.out.println("发布结果：" + l);
-				}catch (Exception e) {
-					LOG.error("把消息放入队列时出现的问题：" + e.getLocalizedMessage(), e);
-				}	
-					return null;
-				}
-			});
+		inMessageTemplate.convertAndSend("weixin_1"+inMessage.getMsgType(),inMessage);
+//		inMessageTemplate.execute(new RedisCallback<String>() {
+//			
+//			@Override
+//			public String doInRedis(RedisConnection connection) throws DataAccessException{
+//				
+//				try {
+//					String channel="weixin_1_"+inMessage.getMsgType();
+//					
+//					ByteArrayOutputStream out=new ByteArrayOutputStream();
+//					ObjectOutputStream oos= new ObjectOutputStream(out);
+//					oos.writeObject(inMessage);
+//					
+//					Long l = connection.publish(channel.getBytes(), out.toByteArray());
+//					System.out.println("发布结果：" + l);
+//				}catch (Exception e) {
+//					LOG.error("把消息放入队列时出现的问题：" + e.getLocalizedMessage(), e);
+//				}	
+//					return null;
+//				}
+//			});
 		
 	/*	inMessageTemplate.execute(new SessionCallback<String>() {
 
