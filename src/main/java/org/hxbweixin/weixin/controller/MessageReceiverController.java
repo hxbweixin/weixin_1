@@ -1,4 +1,4 @@
-package org.hxbweixin.weixin;
+package org.hxbweixin.weixin.controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
