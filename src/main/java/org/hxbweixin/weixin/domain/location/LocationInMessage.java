@@ -8,6 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LocationInMessage extends InMessage {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@XmlElement(name="Location_X")
 	@JsonProperty("Location_X")
 	private String location_x;

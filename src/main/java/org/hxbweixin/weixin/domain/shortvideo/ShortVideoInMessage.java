@@ -8,6 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ShortVideoInMessage extends InMessage {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@XmlElement(name="ThumbMediaId")
 	@JsonProperty("ThumbMediaId")
 	private String thumbMediaId;

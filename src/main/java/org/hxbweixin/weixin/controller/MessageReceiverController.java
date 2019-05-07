@@ -1,7 +1,7 @@
 package org.hxbweixin.weixin.controller;
 
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
+//import java.io.ByteArrayOutputStream;
+//import java.io.ObjectOutputStream;
 import java.io.StringReader;
 
 import javax.xml.bind.JAXB;
@@ -45,7 +45,8 @@ public class MessageReceiverController {
 			@RequestParam("timestamp") String timestamp,
 			@RequestParam("nonce") String nonce, 
 			@RequestBody String xml) {
-		LOG.debug("ÊÕµ½µÄÏûÏ¢Ô­ÎÄ£º\n{}\n-------------", xml);
+		LOG.debug("æ”¶åˆ°ç”¨æˆ·å‘é€ç»™å…¬ä¼—å·çš„ä¿¡æ¯: \n-----------------------------------------\n"
+				+ "{}\n-----------------------------------------\n", xml);
 		
 		
 		String type=xml.substring(xml.indexOf("<MsgType><![CDATA[") +18);
@@ -54,7 +55,7 @@ public class MessageReceiverController {
 		Class<InMessage> cla=MessageTypeInMapper.getClass(type);
 		
 		InMessage inMessage=JAXB.unmarshal(new StringReader(xml), cla);
-		LOG.debug("×ª»»µÃµ½µÄÏûÏ¢¶ÔÏó¡\n{}\n",inMessage.toString());
+		LOG.debug("è½¬æ¢å¾—åˆ°çš„æ¶ˆæ¯å¯¹è±¡ \n{}\n",inMessage.toString());
 		
 		inMessageTemplate.convertAndSend("weixin_1"+inMessage.getMsgType(),inMessage);
 //		inMessageTemplate.execute(new RedisCallback<String>() {
@@ -70,9 +71,9 @@ public class MessageReceiverController {
 //					oos.writeObject(inMessage);
 //					
 //					Long l = connection.publish(channel.getBytes(), out.toByteArray());
-//					System.out.println("·¢²¼½á¹û£º" + l);
+//					System.out.println("å‘å¸ƒç»“æœï¼š" + l);
 //				}catch (Exception e) {
-//					LOG.error("°ÑÏûÏ¢·ÅÈë¶ÓÁĞÊ±³öÏÖµÄÎÊÌâ£º" + e.getLocalizedMessage(), e);
+//					LOG.error("æŠŠæ¶ˆæ¯æ”¾å…¥é˜Ÿåˆ—æ—¶å‡ºç°é—®é¢˜ï¼š" + e.getLocalizedMessage(), e);
 //				}	
 //					return null;
 //				}
