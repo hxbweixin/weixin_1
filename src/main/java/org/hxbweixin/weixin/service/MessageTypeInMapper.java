@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.hxbweixin.weixin.domain.InMessage;
 import org.hxbweixin.weixin.domain.Image.ImageInMessage;
+import org.hxbweixin.weixin.domain.event.EventInMessage;
 import org.hxbweixin.weixin.domain.link.LinkInMessage;
 import org.hxbweixin.weixin.domain.location.LocationInMessage;
 import org.hxbweixin.weixin.domain.shortvideo.ShortVideoInMessage;
@@ -25,7 +26,7 @@ public class MessageTypeInMapper {
 		typeMap.put("shortvideo", ShortVideoInMessage.class);
 		typeMap.put("link", LinkInMessage.class);
 		
-		
+		typeMap.put("event", EventInMessage.class);
 		//typeMap.put("event", EventInMessage.class);
 	}
 	public static <T extends InMessage> Class<T> getClass(String type){
