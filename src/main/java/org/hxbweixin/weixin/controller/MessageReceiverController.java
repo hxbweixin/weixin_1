@@ -5,7 +5,7 @@ import java.io.StringReader;
 import javax.xml.bind.JAXB;
 
 import org.hxbweixin.weixin.domain.InMessage;
-import org.hxbweixin.weixin.service.MessageTypeInMapper;
+import org.hxbweixin.weixin.service.MessageTypeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +59,7 @@ public class MessageReceiverController {
 		String type = xml.substring(xml.indexOf("<MsgType><![CDATA[") + 18);
 		type = type.substring(0, type.indexOf("]]></MsgType>"));
 
-		Class<InMessage> cla = MessageTypeInMapper.getClass(type);
+		Class<InMessage> cla = MessageTypeMapper.getClass(type);
 
 		// 使用JAXB完成XML转换为Java对象的操作
 		InMessage inMessage = JAXB.unmarshal(new StringReader(xml), cla);

@@ -13,7 +13,7 @@ import org.hxbweixin.weixin.domain.text.TextInMessage;
 import org.hxbweixin.weixin.domain.video.VideoInMessage;
 import org.hxbweixin.weixin.domain.voice.VoiceInMessage;
 
-public class MessageTypeInMapper {
+public class MessageTypeMapper {
 
 	private static Map<String,Class<? extends InMessage>> typeMap=new ConcurrentHashMap<>();
 	
@@ -29,6 +29,7 @@ public class MessageTypeInMapper {
 		typeMap.put("event", EventInMessage.class);
 		//typeMap.put("event", EventInMessage.class);
 	}
+	@SuppressWarnings("unchecked")
 	public static <T extends InMessage> Class<T> getClass(String type){
 		return(Class<T>) typeMap.get(type);
 	}
